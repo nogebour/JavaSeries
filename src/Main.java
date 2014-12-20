@@ -1,5 +1,6 @@
-import jsontobom.ConvJToB;
+import jsontobom.ConvJSONToBOM;
 import bom.BSMember;
+import bom.BSShowCenter;
 import brequest.BetaSeriesReq;
 import brequest.HttpURLConnectionImpl;
 
@@ -17,10 +18,11 @@ public class Main {
 
 		System.out.println("\nTesting 3 - Send Http POST request to BetaSeries");
 		BSMember member = new BSMember("nogebour", "");
-		ConvJToB conv = new ConvJToB();
-		conv.getUserConnectionInfos(member);
+		ConvJSONToBOM conv = new ConvJSONToBOM();
 		BetaSeriesReq req = new BetaSeriesReq();
-		System.out.println("Episodes:\n"+req.getUsersEpisodesList(member));
+		conv.getUserConnectionInfos(member);
+		conv.getUserRemainingEpisodes(member);
+		System.out.println(BSShowCenter.INSTANCE.dump());
 	}
 
 }

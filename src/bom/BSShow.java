@@ -1,12 +1,12 @@
 package bom;
 
 import java.util.List;
-public class BSSeries {
+public class BSShow {
 
 	private String title;
-	private int id;
-	private int thetvdb_id;
-	private int imdb_id;
+	private long id;
+	private long thetvdb_id;
+	private long imdb_id;
 	private String description;
 	private int seasons;
 	//private List<BSSeason> seasonList;
@@ -25,7 +25,7 @@ public class BSSeries {
 	private int noteMean;
 	private String bsUrl;
 	
-	public BSSeries() {
+	public BSShow() {
 			super();
 	}
 
@@ -37,15 +37,15 @@ public class BSSeries {
 		this.title = title;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(long l) {
+		this.id = l;
 	}
 
-	public int getThetvdb_id() {
+	public long getThetvdb_id() {
 		return thetvdb_id;
 	}
 
@@ -53,12 +53,12 @@ public class BSSeries {
 		this.thetvdb_id = thetvdb_id;
 	}
 
-	public int getImdb_id() {
+	public long getImdb_id() {
 		return imdb_id;
 	}
 
-	public void setImdb_id(int imdb_id) {
-		this.imdb_id = imdb_id;
+	public void setImdb_id(long l) {
+		this.imdb_id = l;
 	}
 
 	public String getDescription() {

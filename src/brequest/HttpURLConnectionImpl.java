@@ -23,7 +23,6 @@ public class HttpURLConnectionImpl {
 		}else{
 			response = sendRequest(url, RequestType.GET, urlParam);
 		}
-		System.out.println(response);
 		return response;
 	}
 
@@ -36,7 +35,6 @@ public class HttpURLConnectionImpl {
 		}else{
 			response = sendRequest(url, RequestType.POST, urlParam);
 		}
-		System.out.println(response);
 		return response;
 	}
 

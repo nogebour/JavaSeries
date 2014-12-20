@@ -10,7 +10,7 @@ public class BSMember {
 	private String token;
 	private long userId;
 	private boolean inAccount;
-	
+	private Map<Long, BSMemberShow> mapIdShow;
 	
 	public BSMember(String pseudo) {
 		super();
