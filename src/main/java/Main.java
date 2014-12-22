@@ -2,8 +2,6 @@ import jsontobom.ConvJSONToBOM;
 import bom.BSMember;
 import bom.BSShowCenter;
 import brequest.BetaSeriesReq;
-import brequest.HttpURLConnectionImpl;
-
 
 public class Main {
 	public static void main(String[] args) throws Exception {
