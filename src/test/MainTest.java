@@ -8,7 +8,7 @@ import brequest.HttpURLConnectionImpl;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class Main {
+public class MainTest {
 	@test
 	public void mainTest() throws Exception {
 		System.out.println("Init Main");
