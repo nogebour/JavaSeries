@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MainTest {
-	@test
+	@Test
 	public void mainTest() throws Exception {
 		System.out.println("Init Main");
 		BSMember member = new BSMember("Dev010", "developer");
