@@ -14,6 +14,7 @@ public class Main {
 		BetaSeriesReq req = new BetaSeriesReq();
 		System.out.println("\nTesting 1 - Send Connection request to BetaSeries");
 		conv.getUserConnectionInfos(member);
+		assertNotNull(member.getToken());
 		System.out.println("\nTesting 1 - Send Remaining Episodes request to BetaSeries");
 		conv.getUserRemainingEpisodes(member);
 		System.out.println(BSShowCenter.INSTANCE.dump());
