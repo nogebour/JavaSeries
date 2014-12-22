@@ -5,6 +5,8 @@ import bom.BSMember;
 import bom.BSShowCenter;
 import brequest.BetaSeriesReq;
 import brequest.HttpURLConnectionImpl;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class Main {
 	@test
