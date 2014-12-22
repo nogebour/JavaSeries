@@ -1,7 +1,7 @@
 package bom;
 
 import java.security.NoSuchAlgorithmException;
-
+import java.util.Map;
 import utils.MD5Digest;
 
 public class BSMember {
