@@ -7,7 +7,8 @@ import brequest.BetaSeriesReq;
 import brequest.HttpURLConnectionImpl;
 
 public class Main {
-	public static void main(String[] args) throws Exception {
+	@test
+	public void mainTest() throws Exception {
 		System.out.println("Init Main");
 		BSMember member = new BSMember("Dev010", "developer");
 		ConvJSONToBOM conv = new ConvJSONToBOM();
