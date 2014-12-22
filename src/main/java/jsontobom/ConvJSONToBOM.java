@@ -60,11 +60,11 @@ public class ConvJSONToBOM {
 	}
 	
 	private int extractInt(JSONObject objRes, String key) {
-		return (int) objRes.get(key);
+		return ((Number) objRes.get(key)).intvalue();
 	}
 	
 	private long extractLong(JSONObject objRes, String key) {
-		return (long) objRes.get(key);
+		return ((Number) objRes.get(key)).intvalue();
 	}
 	
 	private JSONObject extractJSONObject(JSONObject objRes, String key) {
