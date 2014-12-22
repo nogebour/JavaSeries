@@ -2,7 +2,7 @@ package bom;
 
 import java.security.NoSuchAlgorithmException;
 
-import Utils.MD5Digest;
+import utils.MD5Digest;
 
 public class BSMember {
 	private String pseudo;
