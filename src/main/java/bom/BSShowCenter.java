@@ -2,6 +2,7 @@ package bom;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class BSShowCenter {
@@ -35,7 +36,10 @@ public class BSShowCenter {
 	public String dump() {
 		String result = "There are "+this.mappingShow.size()+" shows in the BSShowCenter:";
 		for (Map.Entry<Long, BSShow> entry : mappingShow.entrySet()){
-			result+="\n\t-> id: "+entry.getKey()+" corresponds to \""+entry.getValue().getTitle()+"\" with this values: Imbd_id/"+entry.getValue().getImdb_id();
+			result+="\n\t-> "+entry.getValue().getTitle()+" with these informations:"+entry.getValue().shortDump();
+			for(Entry<Long, BSEpisodes> entryEpisode : entry.getValue().getEpisodesList().entrySet()){
+				result += "\n\t\t->"+entryEpisode.getValue().dump();
+			}
 		}
 		return result;
 	}

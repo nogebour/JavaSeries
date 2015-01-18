@@ -1,6 +1,9 @@
 package bom;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 public class BSShow {
 
 	private String title;
@@ -10,6 +13,7 @@ public class BSShow {
 	private String description;
 	private int seasons;
 	//private List<BSSeason> seasonList;
+	private Map<Long,BSEpisodes> episodesList;
 	private int episodes;
 	private int followers;
 	private int comments;
@@ -27,8 +31,22 @@ public class BSShow {
 	
 	public BSShow() {
 			super();
+			this.episodesList = new HashMap<Long, BSEpisodes>();
 	}
 
+	public boolean addEpisode(BSEpisodes episode){
+		if(episode.getIdShow()==this.id){
+			if (this.episodesList.containsKey(episode.getGlobalNumber())){
+				return true;
+			}else{
+				this.episodesList.put(episode.getGlobalNumber(), episode);
+			}
+		}else{
+			return false;
+		}
+		return true;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -75,6 +93,14 @@ public class BSShow {
 
 	public void setSeasons(int seasons) {
 		this.seasons = seasons;
+	}
+
+	public Map<Long,BSEpisodes> getEpisodesList() {
+		return episodesList;
+	}
+
+	public void setEpisodesList(Map<Long,BSEpisodes> seasonList) {
+		this.episodesList = seasonList;
 	}
 
 	public int getEpisodes() {
@@ -187,6 +213,75 @@ public class BSShow {
 
 	public void setBsUrl(String bsUrl) {
 		this.bsUrl = bsUrl;
+	}
+
+	public String shortDump() {
+		String result = "";
+		if(title != null){
+			result += "title/\""+title+"\" ";
+		}
+		if(id != 0){
+			result += "id/"+id+" ";
+		}
+		if(thetvdb_id != 0){
+			result += "thetvdb_id/"+thetvdb_id+" ";
+		}
+		if(imdb_id != 0){
+			result += "imdb_id/"+imdb_id+" ";
+		}
+		if(description != null){
+			result += "description/\""+description+"\" ";
+		}
+		if(seasons != 0){
+			result += "seasons/"+seasons+" ";
+		}
+		if(episodes != 0){
+			result += "episodes/"+episodes+" ";
+		}
+		if(followers != 0){
+			result += "followers/"+followers+" ";
+		}
+		if(comments != 0){
+			result += "comments/"+comments+" ";
+		}
+		if(similars != 0){
+			result += "similars/"+similars+" ";
+		}
+		if(characters != 0){
+			result += "characters/"+characters+" ";
+		}
+		if(genres != null && genres.size() > 0){
+			result += "episodes/";
+			for(int itGenre = 0; itGenre < genres.size()-1; itGenre++){
+				result += "\""+genres.get(itGenre)+"\",";
+			}
+			result += "\""+genres.get(genres.size()-1)+"\"";
+		}
+		if(lenght != 0){
+			result += "lenght/"+lenght+" ";
+		}
+		if(network != null){
+			result += "network/\""+network+"\" ";
+		}
+		if(rating != null){
+			result += "rating/"+rating+" ";
+		}
+		if(status != null){
+			result += "status/\""+status+"\" ";
+		}
+		if(language != null){
+			result += "language/\""+language+"\" ";
+		}
+		if(noteTotal != 0){
+			result += "noteTotal/"+noteTotal+" ";
+		}
+		if(noteMean != 0){
+			result += "noteMean/"+noteMean+" ";
+		}
+		if(bsUrl != null){
+			result += "bsUrl/\""+bsUrl+"\" ";
+		}
+		return result;
 	}
 	
 	

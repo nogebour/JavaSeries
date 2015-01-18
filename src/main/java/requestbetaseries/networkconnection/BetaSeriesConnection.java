@@ -1,19 +1,19 @@
-package brequest;
+package requestbetaseries.networkconnection;
 
 import bom.BSMember;
 import bom.DevInfos;
 
-public class BetaSeriesReq {
+public class BetaSeriesConnection {
 	private HttpURLConnectionImpl httpCon;
 	private DevInfos infos;
 	private static String BASEURL = "https://api.betaseries.com/";
-	public BetaSeriesReq(HttpURLConnectionImpl httpCon) {
+	public BetaSeriesConnection(HttpURLConnectionImpl httpCon) {
 		super();
 		this.httpCon = httpCon;
 		this.infos = DevInfos.getInstance();
 	}
 	
-	public BetaSeriesReq() {
+	public BetaSeriesConnection() {
 		super();
 		this.httpCon = new HttpURLConnectionImpl();
 		this.infos = DevInfos.getInstance();

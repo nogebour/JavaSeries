@@ -1,9 +1,12 @@
 package bom;
 
+import java.util.List;
+
 public class BSMemberShow {
 	private BSShow show;
 	private long note;
 	private long remaining;
+	private List<BSEpisodes> remainingEpisodes;
 	
 	public BSMemberShow(){
 		super();
