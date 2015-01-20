@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import requestbetaseries.networkconnection.BetaSeriesConnection;
-import utils.ConvertUnicode;
+import utils.ConvertString;
 import bom.BSEpisodes;
 import bom.BSMember;
 import bom.BSShow;
@@ -47,7 +47,7 @@ public class BetaseriesRequest {
 				BSShow bomShow = new BSShow();
 				bomShow.setId(extractLong(show, "id"));
 				bomShow.setImdb_id(extractLong(show, "thetvdb_id"));
-				bomShow.setTitle(extractString(show, "title"));
+				bomShow.setTitle(ConvertString.replaceBackToLine(extractString(show, "title")));
 				BSShowCenter.INSTANCE.addShow(bomShow);
 				JSONArray unseen = extractArray(show,"unseen");
 				if (unseen != null){
@@ -57,14 +57,14 @@ public class BetaseriesRequest {
 						BSEpisodes bomEpisode = new BSEpisodes();
 						bomEpisode.setId(extractLong(episode, "id"));
 						bomEpisode.setTheTvDbId(extractLong(episode, "thetvdb_id"));
-						bomEpisode.setTitle(extractString(episode, "title"));
+						bomEpisode.setTitle(ConvertString.replaceBackToLine(extractString(episode, "title")));
 						bomEpisode.setSeason(extractLong(episode, "season"));
 						bomEpisode.setEpisode(extractLong(episode, "episode"));
 						bomEpisode.setIdShow(extractLong(episode, "show_id"));
-						bomEpisode.setCode(extractString(episode, "code"));
+						bomEpisode.setCode(ConvertString.replaceBackToLine(extractString(episode, "code")));
 						bomEpisode.setGlobalNumber(extractLong(episode, "global"));
-						bomEpisode.setDescription(extractString(episode, "description"));
-						bomEpisode.setDate(extractString(episode, "date"));
+						bomEpisode.setDescription(ConvertString.replaceBackToLine(extractString(episode, "description")));
+						bomEpisode.setDate(ConvertString.replaceBackToLine(extractString(episode, "date")));
 						bomShow.addEpisode(bomEpisode);
 					}
 				}

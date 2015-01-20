@@ -2,7 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-public class ConvertUnicode {
+public class ConvertString {
 	public static String convertUnicodeToString(String slashed){
 		System.out.println("Before convertion :"+slashed);
 		ArrayList<String> pieces = new ArrayList<String>();
@@ -24,5 +24,9 @@ public class ConvertUnicode {
 		slashed = temp + slashed;
 		System.out.println("After convertion :"+slashed);
 		return slashed;
+	}
+	
+	public static String replaceBackToLine(String input){
+		return input.replace("\n", " ");
 	}
 }
