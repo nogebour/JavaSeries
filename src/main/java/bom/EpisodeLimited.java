@@ -9,6 +9,8 @@ public class EpisodeLimited extends Episode implements IntLimitedLifeTimeBom{
 	private boolean accessMode;
 	
 	public EpisodeLimited() {
+		super();
+		this.accessMode = true;
 		this.updateDate();
 	}
 

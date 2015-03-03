@@ -9,6 +9,8 @@ public class MemberShowLimited extends MemberShow implements IntLimitedLifeTimeB
 	private boolean accessMode;
 	
 	public MemberShowLimited() {
+		super();
+		this.accessMode = true;
 		this.updateDate();
 	}
 

@@ -17,6 +17,7 @@ public class ShowLimited extends Show implements IntLimitedLifeTimeBom {
 	
 	public ShowLimited() {
 		super();
+		this.accessMode = true;
 		this.updateDate();
 	}
 	
