@@ -1,11 +1,13 @@
 package bom;
 
+import interfaces.IntBomObject;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class BSShowCenter {
+public class BSShowCenter implements IntBomObject{
 	private Map<Long, BSShow> mappingShow;
 	
 	public BSShowCenter(){

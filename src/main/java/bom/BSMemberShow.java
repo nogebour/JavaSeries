@@ -1,8 +1,10 @@
 package bom;
 
+import interfaces.IntBomObject;
+
 import java.util.List;
 
-public class BSMemberShow {
+public class BSMemberShow implements IntBomObject{
 	private BSShow show;
 	private long note;
 	private long remaining;

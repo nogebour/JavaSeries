@@ -1,6 +1,8 @@
 package bom;
 
-public class BSEpisodes {
+import interfaces.IntBomObject;
+
+public class BSEpisodes implements IntBomObject{
 	private long id;
 	private long theTvDbId;
 	private String title;

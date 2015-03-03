@@ -1,10 +1,12 @@
 package bom;
 
+import interfaces.IntBomObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-public class BSShow {
+public class BSShow implements IntBomObject{
 
 	private String title;
 	private long id;

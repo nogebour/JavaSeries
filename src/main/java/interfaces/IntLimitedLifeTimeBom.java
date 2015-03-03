@@ -1,4 +1,4 @@
-package bom;
+package interfaces;
 
 import java.util.Date;
 

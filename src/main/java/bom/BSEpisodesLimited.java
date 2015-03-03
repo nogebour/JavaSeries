@@ -1,5 +1,7 @@
 package bom;
 
+import interfaces.IntLimitedLifeTimeBom;
+
 import java.util.Date;
 
 public class BSEpisodesLimited extends BSEpisodes implements IntLimitedLifeTimeBom{

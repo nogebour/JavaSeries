@@ -1,4 +1,4 @@
-package bom;
+package utils;
 
 public class DevInfos {
 	private String version;

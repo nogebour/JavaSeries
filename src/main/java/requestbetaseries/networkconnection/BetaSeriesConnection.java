@@ -1,7 +1,7 @@
 package requestbetaseries.networkconnection;
 
+import utils.DevInfos;
 import bom.BSMember;
-import bom.DevInfos;
 
 public class BetaSeriesConnection {
 	private HttpURLConnectionImpl httpCon;

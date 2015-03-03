@@ -1,11 +1,13 @@
 package bom;
 
+import interfaces.IntBomObject;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 import utils.MD5Digest;
 
-public class BSMember {
+public class BSMember implements IntBomObject{
 	private String pseudo;
 	private String password;
 	private String token;
