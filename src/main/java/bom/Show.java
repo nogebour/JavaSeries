@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+
 public class Show implements IntBomObject{
 
 	private String title;
@@ -31,16 +31,28 @@ public class Show implements IntBomObject{
 	private int noteTotal;
 	private int noteMean;
 	private String bsUrl;
-	
+
 	public Show() {
-			super();
-			this.episodesList = new HashMap<Long, Episode>();
+		super();
+		this.episodesList = new HashMap<Long, Episode>();
 	}
 
 	public boolean addEpisode(Episode episode){
+		return this.addOrUpdateEpisode(episode, true);
+	}
+	
+	public boolean updateEpisode(Episode episode){
+		return this.addOrUpdateEpisode(episode, false);
+	}
+	
+	public boolean addOrUpdateEpisode(Episode episode, boolean addOnly){
 		if(episode.getIdShow()==this.id){
 			if (this.episodesList.containsKey(episode.getGlobalNumber())){
-				return true;
+				if(addOnly){
+					return false;
+				}else{
+					this.episodesList.get(episode.getGlobalNumber()).updateShow(episode);
+				}
 			}else{
 				this.episodesList.put(episode.getGlobalNumber(), episode);
 			}
@@ -49,7 +61,7 @@ public class Show implements IntBomObject{
 		}
 		return true;
 	}
-	
+
 	public boolean updateShow(Show aShow){
 		boolean hasbeenUpdated = false;
 		if(aShow.getTitle() != null && title != aShow.getTitle()){
@@ -76,6 +88,12 @@ public class Show implements IntBomObject{
 			this.setSeasons(aShow.getSeasons());
 			hasbeenUpdated = true;
 		}
+		if(aShow.getEpisodesList() != null){
+			for(Map.Entry<Long, Episode> entry : aShow.getEpisodesList().entrySet()){
+				this.updateEpisode(entry.getValue());
+				hasbeenUpdated = true;
+			}
+		}
 		if(aShow.getEpisodes() != 0 && episodes != aShow.getEpisodes()){
 			this.setEpisodes(aShow.getEpisodes());
 			hasbeenUpdated = true;
@@ -97,27 +115,8 @@ public class Show implements IntBomObject{
 			hasbeenUpdated = true;
 		}
 		if(aShow.getGenres() != null){
-			if(genres == null){
-				this.setGenres(aShow.getGenres());
-				hasbeenUpdated = true;
-			}else{
-				Iterator<String> itGenre = genres.iterator();
-				while(itGenre.hasNext()){
-					String aGenre = itGenre.next();
-					if(!aShow.getGenres().contains(aGenre)){
-						genres.remove(aGenre);
-						hasbeenUpdated = true;
-					}
-				}
-				Iterator<String> itGenreBis = aShow.getGenres().iterator();
-				while(itGenreBis.hasNext()){
-					String aGenre = itGenreBis.next();
-					if(!this.getGenres().contains(aGenre)){
-						genres.add(aGenre);
-						hasbeenUpdated = true;
-					}
-				}
-			}
+			this.setGenres(aShow.getGenres());
+			hasbeenUpdated = true;
 		}
 		if(aShow.getLength() != 0 && length != aShow.getLength()){
 			this.setLength(aShow.getLength());
@@ -153,7 +152,7 @@ public class Show implements IntBomObject{
 		}
 		return hasbeenUpdated;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -390,6 +389,6 @@ public class Show implements IntBomObject{
 		}
 		return result;
 	}
-	
-	
+
+
 }

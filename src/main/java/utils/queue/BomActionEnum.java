@@ -1,6 +1,6 @@
 package utils.queue;
 
-public enum ActionEnum {
+public enum BomActionEnum {
 	NEW,
 	UPDATE,
 	DELETE

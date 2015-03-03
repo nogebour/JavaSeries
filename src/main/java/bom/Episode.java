@@ -17,6 +17,51 @@ public class Episode implements IntBomObject{
 	public Episode() {
 	}
 
+	public boolean updateShow(Episode aShow){
+		boolean hasbeenUpdated = false;
+		if(aShow.getId() != 0 && id != aShow.getId()){
+			this.setId(aShow.getId());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getTheTvDbId() != 0 && theTvDbId != aShow.getTheTvDbId()){
+			this.setTheTvDbId(aShow.getTheTvDbId());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getTitle() != null && title != aShow.getTitle()){
+			this.setTitle(aShow.getTitle());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getSeason() != 0 && season != aShow.getSeason()){
+			this.setSeason(aShow.getSeason());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getEpisode() != 0 && episode != aShow.getEpisode()){
+			this.setEpisode(aShow.getEpisode());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getIdShow() != 0 && idShow != aShow.getIdShow()){
+			this.setIdShow(aShow.getIdShow());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getCode() != null && code != aShow.getCode()){
+			this.setCode(aShow.getCode());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getGlobalNumber() != 0 && globalNumber != aShow.getGlobalNumber()){
+			this.setGlobalNumber(aShow.getGlobalNumber());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getDescription() != null && description != aShow.getDescription()){
+			this.setDescription(aShow.getDescription());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getDate() != null && date != aShow.getDate()){
+			this.setDate(aShow.getDate());
+			hasbeenUpdated = true;
+		}
+		return hasbeenUpdated;
+	}
+	
 	public long getId() {
 		return id;
 	}

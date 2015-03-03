@@ -424,4 +424,16 @@ public class ShowLimited extends Show implements IntLimitedLifeTimeBom {
 		super.setBsUrl(bsUrl);
 	}
 
+	/* (non-Javadoc)
+	 * @see bom.Show#dump()
+	 */
+	@Override
+	public String shortDump() {
+		String result = super.shortDump();
+		if(lastUsage != null){
+			result += "lastUsage/\""+lastUsage+"\" ";
+		}
+		return result;
+	}
+
 }

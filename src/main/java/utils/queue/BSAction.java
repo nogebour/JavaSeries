@@ -2,14 +2,14 @@ package utils.queue;
 
 import interfaces.IntBomObject;
 
-public class BomAction {
-	private BomActionEnum action;
+public class BSAction {
+	private BSActionEnum action;
 	private IntBomObject object;
 	
-	public BomActionEnum getAction() {
+	public BSActionEnum getAction() {
 		return action;
 	}
-	public void setAction(BomActionEnum action) {
+	public void setAction(BSActionEnum action) {
 		this.action = action;
 	}
 	public IntBomObject getObject() {

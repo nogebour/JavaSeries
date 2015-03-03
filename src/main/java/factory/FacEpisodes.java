@@ -1,13 +1,7 @@
 package factory;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import utils.Settings;
 import bom.Episode;
+import bom.EpisodeLimited;
 
 /**
  * Factory which allow to create and store the BSEpisode.
@@ -22,16 +16,13 @@ import bom.Episode;
  */
 
 public class FacEpisodes {
-	public Map<Episode, Date> listofAllEpisodes;
 	public final static FacEpisodes INSTANCE = new FacEpisodes();
 	
 	public FacEpisodes(){
-		listofAllEpisodes = new HashMap<Episode, Date>();
 	}
 	
 	public Episode getNewEpisode(){
-		Episode episode = new Episode();
-		listofAllEpisodes.put(episode, new Date());
+		Episode episode = new EpisodeLimited();
 		return episode;
 	}
 

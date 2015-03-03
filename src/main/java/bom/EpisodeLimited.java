@@ -213,5 +213,17 @@ public class EpisodeLimited extends Episode implements IntLimitedLifeTimeBom{
 		return lastUsage;
 	}
 
+	/* (non-Javadoc)
+	 * @see bom.Episode#dump()
+	 */
+	@Override
+	public String dump() {
+		String result = super.dump();
+		if(lastUsage != null){
+			result += "lastUsage/\""+lastUsage+"\" ";
+		}
+		return result;
+	}
+
 
 }

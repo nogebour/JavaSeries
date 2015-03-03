@@ -1,7 +1,6 @@
 package bom;
 
 import interfaces.IntBomObject;
-
 import java.util.List;
 
 public class MemberShow implements IntBomObject{

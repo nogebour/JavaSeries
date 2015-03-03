@@ -34,8 +34,9 @@ public class MainTest {
 		try {
 			conv.getUserConnectionInfos(member);
 			conv.getUserRemainingEpisodes(member);
+			//System.out.println(FacShowCenter.INSTANCE.getShowCenter().dump());
 			Assert.assertNotNull(FacShowCenter.INSTANCE.getShowCenter().dump());
-			Assert.assertNotNull(FacShowCenter.INSTANCE.getShowCenter().getShowById((Long)(FacShowCenter.INSTANCE.getShowCenter().getMappingShow().keySet().toArray()[0])));
+			Assert.assertNotNull(FacShowCenter.INSTANCE.getShowCenter().getShowById((Long)(FacShowCenter.INSTANCE.getShowCenter().getMappingShow().keySet().toArray()[0])).shortDump());
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -44,10 +45,13 @@ public class MainTest {
 
 	@Test
 	public void FacEpisodesDate(){
+		System.out.println("->Testing 3 - Send Remaining Episodes request to BetaSeries");
 		if (FacShowCenter.INSTANCE.getShowCenter() instanceof ShowCenterLimited){
+			System.out.println("->Instance of ShowCenterLimited");
 			((ShowCenterLimited)FacShowCenter.INSTANCE.getShowCenter()).cleanListEpisodes();
 			Assert.assertTrue(true);
 		}else{
+			System.out.println("->not an instance of ShowCenterLimited");
 			Assert.assertTrue(false);
 		}
 	}

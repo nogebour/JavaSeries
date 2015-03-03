@@ -4,6 +4,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import factory.FacEpisodes;
+import factory.FacShow;
 import factory.FacShowCenter;
 import requestbetaseries.networkconnection.BetaSeriesConnection;
 import utils.ConvertJSON;
@@ -36,7 +38,7 @@ public class BetaseriesRequest {
 	public void getUserRemainingEpisodes(Member member) throws Exception{
 		BetaSeriesConnection bsReq = new BetaSeriesConnection();
 		String response = bsReq.getUsersEpisodesList(member);
-		System.out.println(response);
+		//System.out.println(response);
 		JSONParser parserJSON = new JSONParser();
 		Object jsonRes = parserJSON.parse(response);
 		if (jsonRes.getClass() == JSONObject.class)
@@ -46,17 +48,16 @@ public class BetaseriesRequest {
 			System.out.println("There are "+shows.size()+" shows");
 			for(int itShows = 0; itShows < shows.size(); itShows++){
 				JSONObject show = ((JSONObject) shows.get(itShows));
-				Show bomShow = new Show();
+				Show bomShow = FacShow.INSTANCE.getNewShow();
 				bomShow.setId(ConvertJSON.extractLong(show, "id"));
 				bomShow.setImdbId(ConvertJSON.extractLong(show, "thetvdb_id"));
 				bomShow.setTitle(ConvertString.replaceBackToLine(ConvertJSON.extractString(show, "title")));
-				FacShowCenter.INSTANCE.getShowCenter().addShow(bomShow);
 				JSONArray unseen = ConvertJSON.extractArray(show,"unseen");
 				if (unseen != null){
 					System.out.println("There are "+unseen.size()+" unseen epsiodes for the show \""+ConvertJSON.extractString(show, "title")+"\"");
 					for (int itUnseen = 0; itUnseen < unseen.size(); itUnseen++){
 						JSONObject episode = ((JSONObject) unseen.get(itUnseen));
-						Episode bomEpisode = new Episode();
+						Episode bomEpisode = FacEpisodes.INSTANCE.getNewEpisode();
 						bomEpisode.setId(ConvertJSON.extractLong(episode, "id"));
 						bomEpisode.setTheTvDbId(ConvertJSON.extractLong(episode, "thetvdb_id"));
 						bomEpisode.setTitle(ConvertString.replaceBackToLine(ConvertJSON.extractString(episode, "title")));
@@ -68,9 +69,9 @@ public class BetaseriesRequest {
 						bomEpisode.setDescription(ConvertString.replaceBackToLine(ConvertJSON.extractString(episode, "description")));
 						bomEpisode.setDate(ConvertString.replaceBackToLine(ConvertJSON.extractString(episode, "date")));
 						bomShow.addEpisode(bomEpisode);
-						
 					}
 				}
+				FacShowCenter.INSTANCE.getShowCenter().addShow(bomShow);
 			}
 		}
 	}
