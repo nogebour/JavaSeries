@@ -1,0 +1,5 @@
+List of things to do
+->Order episodes accordinng date for each user
+->Create new queue for BS actions
+->Create DB interface
+->Change Series update in BSRequest
