@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public class BSShowCenter implements IntBomObject{
-	private Map<Long, BSShow> mappingShow;
+	protected Map<Long, BSShow> mappingShow;
 	
 	public BSShowCenter(){
 		mappingShow = new HashMap<Long, BSShow>();

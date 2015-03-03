@@ -34,15 +34,5 @@ public class FacEpisodes {
 		listofAllEpisodes.put(episode, new Date());
 		return episode;
 	}
-	public void cleanListEpisodes(){
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_YEAR, Settings.LAST_LIMIT_USAGE);
-		Date currentDateMinusDays = cal.getTime();
-		System.out.println("Now "+Settings.LAST_LIMIT_USAGE+" days :"+currentDateMinusDays);		
-		for(Entry<BSEpisodes, Date> entryEpisode : listofAllEpisodes.entrySet()){
-			if(entryEpisode.getValue().before(currentDateMinusDays)){				
-			}
-		}
-	}
 
 }

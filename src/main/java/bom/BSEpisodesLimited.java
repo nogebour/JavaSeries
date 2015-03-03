@@ -5,16 +5,26 @@ import interfaces.IntLimitedLifeTimeBom;
 import java.util.Date;
 
 public class BSEpisodesLimited extends BSEpisodes implements IntLimitedLifeTimeBom{
-	private Date last_usage;
+	private Date lastUsage;
+	private boolean accessMode;
 	
 	public BSEpisodesLimited() {
 		this.updateDate();
 	}
 
-	private void updateDate() {
-		last_usage = new Date();
+	public boolean isAccessMode() {
+		return accessMode;
 	}
 
+	public void setAccessMode(boolean accessMode) {
+		this.accessMode = accessMode;
+	}
+	
+	private void updateDate() {
+		if(accessMode){
+			lastUsage = new Date();
+		}
+	}
 	
 	/* (non-Javadoc)
 	 * @see bom.BSEpisodes#getId()
@@ -199,8 +209,8 @@ public class BSEpisodesLimited extends BSEpisodes implements IntLimitedLifeTimeB
 	/**
 	 * @return the last_usage
 	 */
-	public Date getLast_usage() {
-		return last_usage;
+	public Date getLastUsage() {
+		return lastUsage;
 	}
 
 

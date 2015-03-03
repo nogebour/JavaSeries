@@ -5,7 +5,8 @@ import interfaces.IntLimitedLifeTimeBom;
 import java.util.Date;
 
 public class BSMemberShowLimited extends BSMemberShow implements IntLimitedLifeTimeBom {
-	private Date last_usage;
+	private Date lastUsage;
+	private boolean accessMode;
 	
 	public BSMemberShowLimited() {
 		this.updateDate();
@@ -16,15 +17,25 @@ public class BSMemberShowLimited extends BSMemberShow implements IntLimitedLifeT
 		this.updateDate();
 	}
 
+	public boolean isAccessMode() {
+		return accessMode;
+	}
+
+	public void setAccessMode(boolean accessMode) {
+		this.accessMode = accessMode;
+	}
+	
 	private void updateDate() {
-		last_usage = new Date();
+		if(accessMode){
+			lastUsage = new Date();
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see bom.IntLimitedLifeTimeBom#getLast_usage()
 	 */
-	public Date getLast_usage() {
-		return last_usage;
+	public Date getLastUsage() {
+		return lastUsage;
 	}
 
 }
