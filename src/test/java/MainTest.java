@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.Assert;
 
 import factory.FacEpisodes;
+import factory.FacShowCenter;
 import requestbetaseries.BetaseriesRequest;
 
 public class MainTest {
@@ -32,14 +33,14 @@ public class MainTest {
 		try {
 			conv.getUserConnectionInfos(member);
 			conv.getUserRemainingEpisodes(member);
-			Assert.assertNotNull(BSShowCenter.INSTANCE.dump());
-			Assert.assertNotNull(BSShowCenter.INSTANCE.getShowById((Long)(BSShowCenter.INSTANCE.getMappingShow().keySet().toArray()[0])));
+			Assert.assertNotNull(FacShowCenter.INSTANCE.getShowCenter().dump());
+			Assert.assertNotNull(FacShowCenter.INSTANCE.getShowCenter().getShowById((Long)(FacShowCenter.INSTANCE.getShowCenter().getMappingShow().keySet().toArray()[0])));
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
 	}
-	
+
 	@Test
 	public void FacEpisodesDate(){
 		FacEpisodes.INSTANCE.cleanListEpisodes();

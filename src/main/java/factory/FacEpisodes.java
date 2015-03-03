@@ -35,6 +35,9 @@ public class FacEpisodes {
 		return episode;
 	}
 	
+	/**
+	 * TODO: Move method to BSShowCenterLimited
+	 */
 	public void cleanListEpisodes(){
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_YEAR, Settings.LAST_LIMIT_USAGE);

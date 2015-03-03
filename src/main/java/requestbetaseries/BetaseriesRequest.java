@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import factory.FacShowCenter;
 import requestbetaseries.networkconnection.BetaSeriesConnection;
 import utils.ConvertString;
 import bom.BSEpisodes;
@@ -48,7 +49,7 @@ public class BetaseriesRequest {
 				bomShow.setId(extractLong(show, "id"));
 				bomShow.setImdb_id(extractLong(show, "thetvdb_id"));
 				bomShow.setTitle(ConvertString.replaceBackToLine(extractString(show, "title")));
-				BSShowCenter.INSTANCE.addShow(bomShow);
+				FacShowCenter.INSTANCE.getShowCenter().addShow(bomShow);
 				JSONArray unseen = extractArray(show,"unseen");
 				if (unseen != null){
 					System.out.println("There are "+unseen.size()+" unseen epsiodes for the show \""+extractString(show, "title")+"\"");

@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 public class BSShowCenter {
-	public static BSShowCenter INSTANCE = new BSShowCenter();
 	private Map<Long, BSShow> mappingShow;
 	
 	public BSShowCenter(){
