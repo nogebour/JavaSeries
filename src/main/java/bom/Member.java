@@ -7,21 +7,20 @@ import java.util.Map;
 
 import utils.MD5Digest;
 
-public class BSMember implements IntBomObject{
+public class Member implements IntBomObject{
 	private String pseudo;
 	private String password;
 	private String token;
 	private long userId;
 	private boolean inAccount;
-	private Map<Long, BSMemberShow> mapIdShow;
+	private Map<Long, MemberShow> mapIdShow;
 	
-	public BSMember(String pseudo) {
+	public Member(String pseudo) {
 		super();
 		this.pseudo = pseudo;
 	}
 	
-	
-	public BSMember(String pseudo, String password) {
+	public Member(String pseudo, String password) {
 		super();
 		this.pseudo = pseudo;
 		try {
@@ -31,7 +30,6 @@ public class BSMember implements IntBomObject{
 			e.printStackTrace();
 		}
 	}
-
 
 	public String getPseudo() {
 		return pseudo;

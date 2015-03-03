@@ -4,11 +4,11 @@ import interfaces.IntLimitedLifeTimeBom;
 
 import java.util.Date;
 
-public class BSEpisodesLimited extends BSEpisodes implements IntLimitedLifeTimeBom{
+public class EpisodeLimited extends Episode implements IntLimitedLifeTimeBom{
 	private Date lastUsage;
 	private boolean accessMode;
 	
-	public BSEpisodesLimited() {
+	public EpisodeLimited() {
 		this.updateDate();
 	}
 

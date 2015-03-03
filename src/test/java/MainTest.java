@@ -2,8 +2,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import bom.BSMember;
-import bom.BSShowCenter;
+import bom.Member;
+import bom.ShowCenter;
+import bom.ShowCenterLimited;
 
 import org.junit.Test;
 import org.junit.Assert;
@@ -13,7 +14,7 @@ import factory.FacShowCenter;
 import requestbetaseries.BetaseriesRequest;
 
 public class MainTest {
-	private static BSMember member = new BSMember("JavaSeriesTest", "xepygement");;
+	private static Member member = new Member("JavaSeriesTest", "xepygement");;
 	private static BetaseriesRequest conv = new BetaseriesRequest();
 
 	@Test
@@ -43,7 +44,11 @@ public class MainTest {
 
 	@Test
 	public void FacEpisodesDate(){
-		FacEpisodes.INSTANCE.cleanListEpisodes();
-		Assert.assertTrue(true);
+		if (FacShowCenter.INSTANCE.getShowCenter() instanceof ShowCenterLimited){
+			((ShowCenterLimited)FacShowCenter.INSTANCE.getShowCenter()).cleanListEpisodes();
+			Assert.assertTrue(true);
+		}else{
+			Assert.assertTrue(false);
+		}
 	}
 }

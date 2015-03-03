@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import utils.Settings;
-import bom.BSEpisodes;
+import bom.Episode;
 
 /**
  * Factory which allow to create and store the BSEpisode.
@@ -22,15 +22,15 @@ import bom.BSEpisodes;
  */
 
 public class FacEpisodes {
-	public Map<BSEpisodes, Date> listofAllEpisodes;
+	public Map<Episode, Date> listofAllEpisodes;
 	public final static FacEpisodes INSTANCE = new FacEpisodes();
 	
 	public FacEpisodes(){
-		listofAllEpisodes = new HashMap<BSEpisodes, Date>();
+		listofAllEpisodes = new HashMap<Episode, Date>();
 	}
 	
-	public BSEpisodes getNewEpisode(){
-		BSEpisodes episode = new BSEpisodes();
+	public Episode getNewEpisode(){
+		Episode episode = new Episode();
 		listofAllEpisodes.put(episode, new Date());
 		return episode;
 	}

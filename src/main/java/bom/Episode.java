@@ -2,7 +2,7 @@ package bom;
 
 import interfaces.IntBomObject;
 
-public class BSEpisodes implements IntBomObject{
+public class Episode implements IntBomObject{
 	private long id;
 	private long theTvDbId;
 	private String title;
@@ -14,7 +14,7 @@ public class BSEpisodes implements IntBomObject{
 	private String description;
 	private String date;
 	
-	public BSEpisodes() {
+	public Episode() {
 	}
 
 	public long getId() {

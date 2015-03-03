@@ -3,26 +3,27 @@ package bom;
 import interfaces.IntBomObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-public class BSShow implements IntBomObject{
+public class Show implements IntBomObject{
 
 	private String title;
 	private long id;
-	private long thetvdb_id;
-	private long imdb_id;
+	private long theTvDbId;
+	private long imdbId;
 	private String description;
 	private int seasons;
 	//private List<BSSeason> seasonList;
-	private Map<Long,BSEpisodes> episodesList;
+	private Map<Long,Episode> episodesList;
 	private int episodes;
 	private int followers;
 	private int comments;
 	private int similars;
 	private int characters;
 	private List<String> genres;
-	private int lenght;
+	private int length;
 	private String network;
 	private String rating;
 	private String status;
@@ -31,12 +32,12 @@ public class BSShow implements IntBomObject{
 	private int noteMean;
 	private String bsUrl;
 	
-	public BSShow() {
+	public Show() {
 			super();
-			this.episodesList = new HashMap<Long, BSEpisodes>();
+			this.episodesList = new HashMap<Long, Episode>();
 	}
 
-	public boolean addEpisode(BSEpisodes episode){
+	public boolean addEpisode(Episode episode){
 		if(episode.getIdShow()==this.id){
 			if (this.episodesList.containsKey(episode.getGlobalNumber())){
 				return true;
@@ -47,6 +48,110 @@ public class BSShow implements IntBomObject{
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean updateShow(Show aShow){
+		boolean hasbeenUpdated = false;
+		if(aShow.getTitle() != null && title != aShow.getTitle()){
+			this.setTitle(aShow.getTitle());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getId() != 0 && id != aShow.getId()){
+			this.setId(aShow.getId());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getTheTvDbId() != 0 && theTvDbId != aShow.getTheTvDbId()){
+			this.setTheTvDbId(aShow.getTheTvDbId());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getImdbId() != 0 && imdbId != aShow.getImdbId()){
+			this.setImdbId(aShow.getImdbId());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getDescription() != null && description != aShow.getDescription()){
+			this.setDescription(aShow.getDescription());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getSeasons() != 0 && seasons != aShow.getSeasons()){
+			this.setSeasons(aShow.getSeasons());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getEpisodes() != 0 && episodes != aShow.getEpisodes()){
+			this.setEpisodes(aShow.getEpisodes());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getFollowers() != 0 && followers != aShow.getFollowers()){
+			this.setFollowers(aShow.getFollowers());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getComments() != 0 && comments != aShow.getComments()){
+			this.setComments(aShow.getComments());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getSimilars() != 0 && similars != aShow.getSimilars()){
+			this.setSimilars(aShow.getSimilars());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getCharacters() != 0 && characters != aShow.getCharacters()){
+			this.setCharacters(aShow.getCharacters());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getGenres() != null){
+			if(genres == null){
+				this.setGenres(aShow.getGenres());
+				hasbeenUpdated = true;
+			}else{
+				Iterator<String> itGenre = genres.iterator();
+				while(itGenre.hasNext()){
+					String aGenre = itGenre.next();
+					if(!aShow.getGenres().contains(aGenre)){
+						genres.remove(aGenre);
+						hasbeenUpdated = true;
+					}
+				}
+				Iterator<String> itGenreBis = aShow.getGenres().iterator();
+				while(itGenreBis.hasNext()){
+					String aGenre = itGenreBis.next();
+					if(!this.getGenres().contains(aGenre)){
+						genres.add(aGenre);
+						hasbeenUpdated = true;
+					}
+				}
+			}
+		}
+		if(aShow.getLength() != 0 && length != aShow.getLength()){
+			this.setLength(aShow.getLength());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getNetwork() != null && network != aShow.getNetwork()){
+			this.setNetwork(aShow.getNetwork());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getRating() != null && rating != aShow.getRating()){
+			this.setRating(aShow.getRating());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getStatus() != null && status != aShow.getStatus()){
+			this.setStatus(aShow.getStatus());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getLanguage() != null && language != aShow.getLanguage()){
+			this.setLanguage(aShow.getLanguage());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getNoteTotal() != 0 && noteTotal != aShow.getNoteTotal()){
+			this.setNoteTotal(aShow.getNoteTotal());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getNoteMean() != 0 && noteMean != aShow.getNoteMean()){
+			this.setNoteMean(aShow.getNoteMean());
+			hasbeenUpdated = true;
+		}
+		if(aShow.getBsUrl() != null && bsUrl != aShow.getBsUrl()){
+			this.setBsUrl(aShow.getBsUrl());
+			hasbeenUpdated = true;
+		}
+		return hasbeenUpdated;
 	}
 	
 	public String getTitle() {
@@ -65,20 +170,20 @@ public class BSShow implements IntBomObject{
 		this.id = l;
 	}
 
-	public long getThetvdb_id() {
-		return thetvdb_id;
+	public long getTheTvDbId() {
+		return theTvDbId;
 	}
 
-	public void setThetvdb_id(int thetvdb_id) {
-		this.thetvdb_id = thetvdb_id;
+	public void setTheTvDbId(long thetvdb_id) {
+		this.theTvDbId = thetvdb_id;
 	}
 
-	public long getImdb_id() {
-		return imdb_id;
+	public long getImdbId() {
+		return imdbId;
 	}
 
-	public void setImdb_id(long l) {
-		this.imdb_id = l;
+	public void setImdbId(long l) {
+		this.imdbId = l;
 	}
 
 	public String getDescription() {
@@ -97,11 +202,11 @@ public class BSShow implements IntBomObject{
 		this.seasons = seasons;
 	}
 
-	public Map<Long,BSEpisodes> getEpisodesList() {
+	public Map<Long,Episode> getEpisodesList() {
 		return episodesList;
 	}
 
-	public void setEpisodesList(Map<Long,BSEpisodes> seasonList) {
+	public void setEpisodesList(Map<Long,Episode> seasonList) {
 		this.episodesList = seasonList;
 	}
 
@@ -153,12 +258,12 @@ public class BSShow implements IntBomObject{
 		this.genres = genres;
 	}
 
-	public int getLenght() {
-		return lenght;
+	public int getLength() {
+		return length;
 	}
 
-	public void setLenght(int lenght) {
-		this.lenght = lenght;
+	public void setLength(int lenght) {
+		this.length = lenght;
 	}
 
 	public String getNetwork() {
@@ -225,11 +330,11 @@ public class BSShow implements IntBomObject{
 		if(id != 0){
 			result += "id/"+id+" ";
 		}
-		if(thetvdb_id != 0){
-			result += "thetvdb_id/"+thetvdb_id+" ";
+		if(theTvDbId != 0){
+			result += "thetvdb_id/"+theTvDbId+" ";
 		}
-		if(imdb_id != 0){
-			result += "imdb_id/"+imdb_id+" ";
+		if(imdbId != 0){
+			result += "imdb_id/"+imdbId+" ";
 		}
 		if(description != null){
 			result += "description/\""+description+"\" ";
@@ -259,8 +364,8 @@ public class BSShow implements IntBomObject{
 			}
 			result += "\""+genres.get(genres.size()-1)+"\"";
 		}
-		if(lenght != 0){
-			result += "lenght/"+lenght+" ";
+		if(length != 0){
+			result += "length/"+length+" ";
 		}
 		if(network != null){
 			result += "network/\""+network+"\" ";

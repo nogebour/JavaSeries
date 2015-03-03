@@ -4,26 +4,26 @@ import interfaces.IntBomObject;
 
 import java.util.List;
 
-public class BSMemberShow implements IntBomObject{
-	private BSShow show;
+public class MemberShow implements IntBomObject{
+	private Show show;
 	private long note;
 	private long remaining;
-	private List<BSEpisodes> remainingEpisodes;
+	private List<Episode> remainingEpisodes;
 	
-	public BSMemberShow(){
+	public MemberShow(){
 		super();
 	}
 	
-	public BSMemberShow(BSShow show){
+	public MemberShow(Show show){
 		super();
 		this.show = show;
 	}
 
-	public BSShow getShow() {
+	public Show getShow() {
 		return show;
 	}
 
-	public void setShow(BSShow show) {
+	public void setShow(Show show) {
 		this.show = show;
 	}
 

@@ -1,7 +1,7 @@
 package requestbetaseries.networkconnection;
 
 import utils.DevInfos;
-import bom.BSMember;
+import bom.Member;
 
 public class BetaSeriesConnection {
 	private HttpURLConnectionImpl httpCon;
@@ -20,7 +20,7 @@ public class BetaSeriesConnection {
 	}
 	
 	// HTTP POST request
-	public String connectBetaseriesAPI(BSMember member) throws Exception {
+	public String connectBetaseriesAPI(Member member) throws Exception {
 		String url = BASEURL+"members/auth";
 		String urlParameters = "key="+this.infos.getDevKey()+"&v="+this.infos.getVersion()+"&login="+member.getPseudo()+"&password="+member.getPassword();
 		boolean https = true;
@@ -28,7 +28,7 @@ public class BetaSeriesConnection {
 	}
 	
 	// HTTP POST request
-	public String getUsersEpisodesList(BSMember member) throws Exception {
+	public String getUsersEpisodesList(Member member) throws Exception {
 		String url = BASEURL+"episodes/list";
 		String urlParameters = "key="+this.infos.getDevKey()+"&v="+this.infos.getVersion()+"&userid="+member.getUserId()+"&token="+member.getToken();
 		boolean https = true;

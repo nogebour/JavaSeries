@@ -4,15 +4,15 @@ import interfaces.IntLimitedLifeTimeBom;
 
 import java.util.Date;
 
-public class BSMemberShowLimited extends BSMemberShow implements IntLimitedLifeTimeBom {
+public class MemberShowLimited extends MemberShow implements IntLimitedLifeTimeBom {
 	private Date lastUsage;
 	private boolean accessMode;
 	
-	public BSMemberShowLimited() {
+	public MemberShowLimited() {
 		this.updateDate();
 	}
 
-	public BSMemberShowLimited(BSShow show) {
+	public MemberShowLimited(Show show) {
 		super(show);
 		this.updateDate();
 	}

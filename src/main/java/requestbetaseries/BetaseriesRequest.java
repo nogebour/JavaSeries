@@ -6,15 +6,16 @@ import org.json.simple.parser.JSONParser;
 
 import factory.FacShowCenter;
 import requestbetaseries.networkconnection.BetaSeriesConnection;
+import utils.ConvertJSON;
 import utils.ConvertString;
-import bom.BSEpisodes;
-import bom.BSMember;
-import bom.BSShow;
-import bom.BSShowCenter;
+import bom.Episode;
+import bom.Member;
+import bom.Show;
+import bom.ShowCenter;
 
 public class BetaseriesRequest {
 
-	public void getUserConnectionInfos(BSMember member) throws Exception{
+	public void getUserConnectionInfos(Member member) throws Exception{
 		BetaSeriesConnection bsReq = new BetaSeriesConnection();
 		String response = bsReq.connectBetaseriesAPI(member);
 		JSONParser parserJSON = new JSONParser();
@@ -22,17 +23,17 @@ public class BetaseriesRequest {
 		if (jsonRes.getClass() == JSONObject.class)
 		{
 			JSONObject objRes = ((JSONObject) jsonRes);
-			String token = extractString(objRes,"token");
+			String token = ConvertJSON.extractString(objRes,"token");
 			System.out.println("token : "+token);
 			member.setToken(token);
-			JSONObject objUser = extractJSONObject(objRes, "user");
-			long userId = extractLong(objUser, "id");
+			JSONObject objUser = ConvertJSON.extractJSONObject(objRes, "user");
+			long userId = ConvertJSON.extractLong(objUser, "id");
 			System.out.println("userId : "+userId);
 			member.setUserId(userId);
 		}
 	}
 
-	public void getUserRemainingEpisodes(BSMember member) throws Exception{
+	public void getUserRemainingEpisodes(Member member) throws Exception{
 		BetaSeriesConnection bsReq = new BetaSeriesConnection();
 		String response = bsReq.getUsersEpisodesList(member);
 		System.out.println(response);
@@ -41,55 +42,38 @@ public class BetaseriesRequest {
 		if (jsonRes.getClass() == JSONObject.class)
 		{
 			JSONObject objRes = ((JSONObject) jsonRes);
-			JSONArray shows = extractArray(objRes,"shows");
+			JSONArray shows = ConvertJSON.extractArray(objRes,"shows");
 			System.out.println("There are "+shows.size()+" shows");
 			for(int itShows = 0; itShows < shows.size(); itShows++){
 				JSONObject show = ((JSONObject) shows.get(itShows));
-				BSShow bomShow = new BSShow();
-				bomShow.setId(extractLong(show, "id"));
-				bomShow.setImdb_id(extractLong(show, "thetvdb_id"));
-				bomShow.setTitle(ConvertString.replaceBackToLine(extractString(show, "title")));
+				Show bomShow = new Show();
+				bomShow.setId(ConvertJSON.extractLong(show, "id"));
+				bomShow.setImdbId(ConvertJSON.extractLong(show, "thetvdb_id"));
+				bomShow.setTitle(ConvertString.replaceBackToLine(ConvertJSON.extractString(show, "title")));
 				FacShowCenter.INSTANCE.getShowCenter().addShow(bomShow);
-				JSONArray unseen = extractArray(show,"unseen");
+				JSONArray unseen = ConvertJSON.extractArray(show,"unseen");
 				if (unseen != null){
-					System.out.println("There are "+unseen.size()+" unseen epsiodes for the show \""+extractString(show, "title")+"\"");
+					System.out.println("There are "+unseen.size()+" unseen epsiodes for the show \""+ConvertJSON.extractString(show, "title")+"\"");
 					for (int itUnseen = 0; itUnseen < unseen.size(); itUnseen++){
 						JSONObject episode = ((JSONObject) unseen.get(itUnseen));
-						BSEpisodes bomEpisode = new BSEpisodes();
-						bomEpisode.setId(extractLong(episode, "id"));
-						bomEpisode.setTheTvDbId(extractLong(episode, "thetvdb_id"));
-						bomEpisode.setTitle(ConvertString.replaceBackToLine(extractString(episode, "title")));
-						bomEpisode.setSeason(extractLong(episode, "season"));
-						bomEpisode.setEpisode(extractLong(episode, "episode"));
-						bomEpisode.setIdShow(extractLong(episode, "show_id"));
-						bomEpisode.setCode(ConvertString.replaceBackToLine(extractString(episode, "code")));
-						bomEpisode.setGlobalNumber(extractLong(episode, "global"));
-						bomEpisode.setDescription(ConvertString.replaceBackToLine(extractString(episode, "description")));
-						bomEpisode.setDate(ConvertString.replaceBackToLine(extractString(episode, "date")));
+						Episode bomEpisode = new Episode();
+						bomEpisode.setId(ConvertJSON.extractLong(episode, "id"));
+						bomEpisode.setTheTvDbId(ConvertJSON.extractLong(episode, "thetvdb_id"));
+						bomEpisode.setTitle(ConvertString.replaceBackToLine(ConvertJSON.extractString(episode, "title")));
+						bomEpisode.setSeason(ConvertJSON.extractLong(episode, "season"));
+						bomEpisode.setEpisode(ConvertJSON.extractLong(episode, "episode"));
+						bomEpisode.setIdShow(ConvertJSON.extractLong(episode, "show_id"));
+						bomEpisode.setCode(ConvertString.replaceBackToLine(ConvertJSON.extractString(episode, "code")));
+						bomEpisode.setGlobalNumber(ConvertJSON.extractLong(episode, "global"));
+						bomEpisode.setDescription(ConvertString.replaceBackToLine(ConvertJSON.extractString(episode, "description")));
+						bomEpisode.setDate(ConvertString.replaceBackToLine(ConvertJSON.extractString(episode, "date")));
 						bomShow.addEpisode(bomEpisode);
+						
 					}
 				}
 			}
 		}
 	}
 
-	private JSONArray extractArray(JSONObject objRes, String key) {
-		return (JSONArray) objRes.get(key);
-	}
 
-	private String extractString(JSONObject objRes, String key) {
-		return (String) objRes.get(key);
-	}
-
-	private int extractInt(JSONObject objRes, String key) {
-		return ((Number) objRes.get(key)).intValue();
-	}
-
-	private long extractLong(JSONObject objRes, String key) {
-		return ((Number) objRes.get(key)).intValue();
-	}
-
-	private JSONObject extractJSONObject(JSONObject objRes, String key) {
-		return (JSONObject) objRes.get(key);
-	}
 }

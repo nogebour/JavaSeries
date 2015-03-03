@@ -11,11 +11,11 @@ import java.util.Map.Entry;
 
 import utils.Settings;
 
-public class BSShowLimited extends BSShow implements IntLimitedLifeTimeBom {
+public class ShowLimited extends Show implements IntLimitedLifeTimeBom {
 	private Date lastUsage;
 	private boolean accessMode;
 	
-	public BSShowLimited() {
+	public ShowLimited() {
 		super();
 		this.updateDate();
 	}
@@ -41,7 +41,7 @@ public class BSShowLimited extends BSShow implements IntLimitedLifeTimeBom {
 	 * @see bom.BSShow#addEpisode(bom.BSEpisodes)
 	 */
 	@Override
-	public boolean addEpisode(BSEpisodes episode) {
+	public boolean addEpisode(Episode episode) {
 		this.updateDate();
 		return super.addEpisode(episode);
 	}
@@ -86,36 +86,36 @@ public class BSShowLimited extends BSShow implements IntLimitedLifeTimeBom {
 	 * @see bom.BSShow#getThetvdb_id()
 	 */
 	@Override
-	public long getThetvdb_id() {
+	public long getTheTvDbId() {
 		this.updateDate();
-		return super.getThetvdb_id();
+		return super.getTheTvDbId();
 	}
 
 	/* (non-Javadoc)
 	 * @see bom.BSShow#setThetvdb_id(int)
 	 */
 	@Override
-	public void setThetvdb_id(int thetvdb_id) {
+	public void setTheTvDbId(long thetvdb_id) {
 		this.updateDate();
-		super.setThetvdb_id(thetvdb_id);
+		super.setTheTvDbId(thetvdb_id);
 	}
 
 	/* (non-Javadoc)
 	 * @see bom.BSShow#getImdb_id()
 	 */
 	@Override
-	public long getImdb_id() {
+	public long getImdbId() {
 		this.updateDate();
-		return super.getImdb_id();
+		return super.getImdbId();
 	}
 
 	/* (non-Javadoc)
 	 * @see bom.BSShow#setImdb_id(long)
 	 */
 	@Override
-	public void setImdb_id(long l) {
+	public void setImdbId(long l) {
 		this.updateDate();
-		super.setImdb_id(l);
+		super.setImdbId(l);
 	}
 
 	/* (non-Javadoc)
@@ -158,7 +158,7 @@ public class BSShowLimited extends BSShow implements IntLimitedLifeTimeBom {
 	 * @see bom.BSShow#getEpisodesList()
 	 */
 	@Override
-	public Map<Long, BSEpisodes> getEpisodesList() {
+	public Map<Long, Episode> getEpisodesList() {
 		this.updateDate();
 		return super.getEpisodesList();
 	}
@@ -167,7 +167,7 @@ public class BSShowLimited extends BSShow implements IntLimitedLifeTimeBom {
 	 * @see bom.BSShow#setEpisodesList(java.util.Map)
 	 */
 	@Override
-	public void setEpisodesList(Map<Long, BSEpisodes> seasonList) {
+	public void setEpisodesList(Map<Long, Episode> seasonList) {
 		this.updateDate();
 		super.setEpisodesList(seasonList);
 	}
@@ -284,18 +284,18 @@ public class BSShowLimited extends BSShow implements IntLimitedLifeTimeBom {
 	 * @see bom.BSShow#getLenght()
 	 */
 	@Override
-	public int getLenght() {
+	public int getLength() {
 		this.updateDate();
-		return super.getLenght();
+		return super.getLength();
 	}
 
 	/* (non-Javadoc)
 	 * @see bom.BSShow#setLenght(int)
 	 */
 	@Override
-	public void setLenght(int lenght) {
+	public void setLength(int lenght) {
 		this.updateDate();
-		super.setLenght(lenght);
+		super.setLength(lenght);
 	}
 
 	/* (non-Javadoc)
