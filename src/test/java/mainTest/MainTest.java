@@ -1,3 +1,4 @@
+package mainTest;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
