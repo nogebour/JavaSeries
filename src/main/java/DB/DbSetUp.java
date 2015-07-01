@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import junit.framework.Assert;
 import utils.preferences.UserPreferences;
 
 public class DbSetUp {	
