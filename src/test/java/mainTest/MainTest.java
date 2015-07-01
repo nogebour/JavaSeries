@@ -13,7 +13,7 @@ import utils.LoggerUtils;
 
 public class MainTest {
 	final static Logger logger = Logger.getLogger(MainTest.class);
-	private static Member member = new Member("JavaSeriesTest", "xepygement");;
+	private static Member member = new Member("JavaSeriesTest", "xepygement");
 	private static BetaseriesRequest conv = new BetaseriesRequest();
 
 	@Test
@@ -34,6 +34,7 @@ public class MainTest {
 			conv.getUserConnectionInfos(member);
 			conv.getUserRemainingEpisodes(member);
 			Assert.assertNotNull(FacShowCenter.INSTANCE.getShowCenter().dump());
+			logger.info(FacShowCenter.INSTANCE.getShowCenter().getShowById((Long)(FacShowCenter.INSTANCE.getShowCenter().getMappingShow().keySet().toArray()[0])).shortDump());
 			Assert.assertNotNull(FacShowCenter.INSTANCE.getShowCenter().getShowById((Long)(FacShowCenter.INSTANCE.getShowCenter().getMappingShow().keySet().toArray()[0])).shortDump());
 		} catch (Exception e) {
 			e.printStackTrace();

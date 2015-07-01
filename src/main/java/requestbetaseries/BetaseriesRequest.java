@@ -52,6 +52,7 @@ public class BetaseriesRequest {
 			logger.info("There are "+shows.size()+" shows");
 			for(int itShows = 0; itShows < shows.size(); itShows++){
 				JSONObject show = ((JSONObject) shows.get(itShows));
+				logger.debug("Dump JSON Show -- "+show.toString());
 				Show bomShow = FacShow.INSTANCE.getNewShow();
 				bomShow.setId(ConvertJSON.extractLong(show, "id"));
 				bomShow.setImdbId(ConvertJSON.extractLong(show, "thetvdb_id"));

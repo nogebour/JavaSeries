@@ -15,7 +15,6 @@ public class Show implements IntBomObject{
 	private long imdbId;
 	private String description;
 	private int seasons;
-	//private List<BSSeason> seasonList;
 	private Map<Long,Episode> episodesList;
 	private int episodes;
 	private int followers;

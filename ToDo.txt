@@ -1,4 +1,4 @@
 List of things to do
-->Order episodes accordinng date for each user
-->Create DB interface
+->Order episodes according date for each user
+->Create DB interface --- Ongoing
 ->Change Series update in BSRequest

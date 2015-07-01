@@ -31,7 +31,7 @@ public class DbGenre {
 		return theReturnId;
 	}
 
-	private void insertGenre(String genre, Connection theConn) {
+	public void insertGenre(String genre, Connection theConn) {
 		String sqlInsertGenre = "Insert into GENRE (GENRE) values (?);";
 		PreparedStatement theStatement;
 		try {

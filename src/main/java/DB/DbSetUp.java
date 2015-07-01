@@ -55,26 +55,26 @@ public class DbSetUp {
 		}
 		try {
 			String sqlCreateShow = "Create table if not exists SHOW ("
-					+ "ID int,"
-					+ "THETVDBID int,"
-					+ "IMDBID int,"
-					+ "TITLE text,"
-					+ "DESCRIPTION text,"
-					+ "SEASONS int,"
-					+ "EPISODES int,"
-					+ "FOLLOWERS int,"
-					+ "COMMENTS int,"
-					+ "SIMILARS int,"
-					+ "CHARACTERS int,"
-					+ "LENGTH int,"
-					+ "NETWORK text,"
-					+ "RATING int,"
-					+ "STATUS int,"
-					+ "LANGUAGE text,"
-					+ "NOTETOTAL int,"
-					+ "NOTEMEAN int,"
-					+ "URL text,"
-					+ "LAST_USAGE datetime,"
+					+ "ID int," 			//1
+					+ "THETVDBID int,"		//2
+					+ "IMDBID int,"			//3
+					+ "TITLE text,"			//4
+					+ "DESCRIPTION text,"	//5
+					+ "SEASONS int,"		//6
+					+ "EPISODES int,"		//7
+					+ "FOLLOWERS int,"		//8
+					+ "COMMENTS int,"		//9
+					+ "SIMILARS int,"		//10
+					+ "CHARACTERS int,"		//11
+					+ "LENGTH int,"			//12
+					+ "NETWORK text,"		//13
+					+ "RATING text,"		//14
+					+ "STATUS text,"		//15
+					+ "LANGUAGE text,"		//16
+					+ "NOTETOTAL int,"		//17
+					+ "NOTEMEAN int,"		//18
+					+ "URL text,"			//19
+					+ "LAST_USAGE datetime,"//20
 					+ "primary key (ID));";
 			String sqlCreateGenre = "Create table if not exists GENRE ("
 					+ "ID int auto increment,"
