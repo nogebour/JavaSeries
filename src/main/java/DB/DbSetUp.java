@@ -132,7 +132,7 @@ public class DbSetUp {
 			for(int anIndex = 0; anIndex < sqlCreateArray.length; ++anIndex){
 				int theResult = executeSqlQueryUpdate(iConn, sqlCreateArray[anIndex]);
 				System.out.println("Execution of "+stringCreateArray[anIndex]+" : "+theResult);
-				Assert.assertTrue(theResult == 0);
+				oStatus = oStatus && (theResult==0);
 			}
 		} catch (SQLException e) {
 			oStatus = false;
