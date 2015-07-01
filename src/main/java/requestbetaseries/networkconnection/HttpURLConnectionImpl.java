@@ -10,8 +10,14 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class HttpURLConnectionImpl {
+import org.apache.log4j.Logger;
 
+import utils.LoggerUtils;
+
+public class HttpURLConnectionImpl {
+	
+	final static Logger logger = LoggerUtils.getLogger(HttpURLConnectionImpl.class);
+	
 	private final String USER_AGENT = "NogebourJavaApi/0.1";
 
 	// HTTP GET request
@@ -77,9 +83,9 @@ public class HttpURLConnectionImpl {
 		}
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending '"+typeReq.getValue()+"' request to URL : " + url);
-		System.out.println("URL parameters : " + urlParameters);
-		System.out.println("Response Code : " + responseCode);
+		logger.debug("Sending '"+typeReq.getValue()+"' request to URL : " + url);
+		logger.debug("URL parameters : " + urlParameters);
+		logger.debug("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 				new InputStreamReader(con.getInputStream()));

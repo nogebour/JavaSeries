@@ -6,12 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.log4j.Logger;
+
+import utils.LoggerUtils;
 import utils.preferences.UserPreferences;
 
 public class DbSetUp {	
+	final static Logger logger = LoggerUtils.getLogger(DbSetUp.class);
+	
+	private static final DbSetUp INSTANCE = new DbSetUp();
+	
 	private UserPreferences theUserPrefs;
 
-	public DbSetUp(){
+	private DbSetUp(){
 		theUserPrefs = new UserPreferences();
 	}
 
@@ -29,10 +36,10 @@ public class DbSetUp {
 				theConn = DriverManager.getConnection("jdbc:sqlite:"+DbFileName+".db");
 
 			} catch (ClassNotFoundException e) {
-				System.out.println("Class Not Found - Return null");
+				logger.error("Class Not Found - Return null");
 				e.printStackTrace();
 			} catch (SQLException e) {
-				System.out.println("SQL Exception - Return null");
+				logger.error("SQL Exception - Return null");
 				e.printStackTrace();
 			}
 		}
@@ -70,7 +77,7 @@ public class DbSetUp {
 					+ "LAST_USAGE datetime,"
 					+ "primary key (ID));";
 			String sqlCreateGenre = "Create table if not exists GENRE ("
-					+ "ID int,"
+					+ "ID int auto increment,"
 					+ "GENRE text,"
 					+ "primary key (ID));";
 			String sqlCreateShowGenreMapping = "Create table if not exists SHOW_GENRE_MAPPING ("
@@ -130,12 +137,12 @@ public class DbSetUp {
 					"sqlCreateRemainingEpisodes"};
 			for(int anIndex = 0; anIndex < sqlCreateArray.length; ++anIndex){
 				int theResult = executeSqlQueryUpdate(iConn, sqlCreateArray[anIndex]);
-				System.out.println("Execution of "+stringCreateArray[anIndex]+" : "+theResult);
+				logger.debug("Execution of "+stringCreateArray[anIndex]+" : "+theResult);
 				oStatus = oStatus && (theResult==0);
 			}
 		} catch (SQLException e) {
 			oStatus = false;
-			System.out.println("Exception during SQL Querys");
+			logger.error("Exception during SQL Querys");
 			e.printStackTrace();
 		}
 		if(newConn){
@@ -143,7 +150,7 @@ public class DbSetUp {
 				iConn.close();
 			} catch (SQLException e) {
 				oStatus = false;
-				System.out.println("Exception during Connection closing");
+				logger.error("Exception during Connection closing");
 				e.printStackTrace();
 			}
 		}
@@ -160,5 +167,9 @@ public class DbSetUp {
 			throws SQLException {
 		Statement theStmt = iConn.createStatement();
 		return theStmt.executeQuery(sqlQuery);
+	}
+
+	public static DbSetUp getInstance() {
+		return INSTANCE;
 	}
 }

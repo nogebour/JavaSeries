@@ -1,5 +1,6 @@
 package requestbetaseries;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,6 +11,8 @@ import factory.FacShowCenter;
 import requestbetaseries.networkconnection.BetaSeriesConnection;
 import utils.ConvertJSON;
 import utils.ConvertString;
+import utils.LoggerUtils;
+import DB.DbSetUp;
 import bom.Episode;
 import bom.Member;
 import bom.Show;
@@ -17,6 +20,8 @@ import bom.ShowCenter;
 
 public class BetaseriesRequest {
 
+	final static Logger logger = LoggerUtils.getLogger(BetaseriesRequest.class);
+	
 	public void getUserConnectionInfos(Member member) throws Exception{
 		BetaSeriesConnection bsReq = new BetaSeriesConnection();
 		String response = bsReq.connectBetaseriesAPI(member);
@@ -26,11 +31,11 @@ public class BetaseriesRequest {
 		{
 			JSONObject objRes = ((JSONObject) jsonRes);
 			String token = ConvertJSON.extractString(objRes,"token");
-			System.out.println("token : "+token);
+			logger.debug("token : "+token);
 			member.setToken(token);
 			JSONObject objUser = ConvertJSON.extractJSONObject(objRes, "user");
 			long userId = ConvertJSON.extractLong(objUser, "id");
-			System.out.println("userId : "+userId);
+			logger.debug("userId : "+userId);
 			member.setUserId(userId);
 		}
 	}
@@ -38,14 +43,13 @@ public class BetaseriesRequest {
 	public void getUserRemainingEpisodes(Member member) throws Exception{
 		BetaSeriesConnection bsReq = new BetaSeriesConnection();
 		String response = bsReq.getUsersEpisodesList(member);
-		//System.out.println(response);
 		JSONParser parserJSON = new JSONParser();
 		Object jsonRes = parserJSON.parse(response);
 		if (jsonRes.getClass() == JSONObject.class)
 		{
 			JSONObject objRes = ((JSONObject) jsonRes);
 			JSONArray shows = ConvertJSON.extractArray(objRes,"shows");
-			System.out.println("There are "+shows.size()+" shows");
+			logger.info("There are "+shows.size()+" shows");
 			for(int itShows = 0; itShows < shows.size(); itShows++){
 				JSONObject show = ((JSONObject) shows.get(itShows));
 				Show bomShow = FacShow.INSTANCE.getNewShow();
@@ -54,7 +58,7 @@ public class BetaseriesRequest {
 				bomShow.setTitle(ConvertString.replaceBackToLine(ConvertJSON.extractString(show, "title")));
 				JSONArray unseen = ConvertJSON.extractArray(show,"unseen");
 				if (unseen != null){
-					System.out.println("There are "+unseen.size()+" unseen epsiodes for the show \""+ConvertJSON.extractString(show, "title")+"\"");
+					logger.info("There are "+unseen.size()+" unseen epsiodes for the show \""+ConvertJSON.extractString(show, "title")+"\"");
 					for (int itUnseen = 0; itUnseen < unseen.size(); itUnseen++){
 						JSONObject episode = ((JSONObject) unseen.get(itUnseen));
 						Episode bomEpisode = FacEpisodes.INSTANCE.getNewEpisode();

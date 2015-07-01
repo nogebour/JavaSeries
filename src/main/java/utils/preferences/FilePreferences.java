@@ -1,13 +1,16 @@
 package utils.preferences;
 import java.util.*;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import java.util.prefs.AbstractPreferences;
 import java.util.prefs.BackingStoreException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileOutputStream;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+import utils.LoggerUtils;
  
 /**
  * Preferences implementation that stores to a user-defined file. See FilePreferencesFactory.
@@ -17,7 +20,7 @@ import java.io.FileOutputStream;
  */
 public class FilePreferences extends AbstractPreferences
 {
-  private static final Logger log = Logger.getLogger(FilePreferences.class.getName());
+  private static final Logger log = LoggerUtils.getLogger(FilePreferences.class);
  
   private Map<String, String> root;
   private Map<String, FilePreferences> children;
@@ -27,7 +30,7 @@ public class FilePreferences extends AbstractPreferences
   {
     super(parent, name);
  
-    log.finest("Instantiating node " + name);
+    log.debug("Instantiating node " + name);
  
     root = new TreeMap<String, String>();
     children = new TreeMap<String, FilePreferences>();
@@ -36,7 +39,7 @@ public class FilePreferences extends AbstractPreferences
       sync();
     }
     catch (BackingStoreException e) {
-      log.log(Level.SEVERE, "Unable to sync on creation of node " + name, e);
+      log.log(Level.FATAL, "Unable to sync on creation of node " + name, e);
     }
   }
  
@@ -47,7 +50,7 @@ public class FilePreferences extends AbstractPreferences
       flush();
     }
     catch (BackingStoreException e) {
-      log.log(Level.SEVERE, "Unable to flush after putting " + key, e);
+      log.log(Level.FATAL, "Unable to flush after putting " + key, e);
     }
   }
  
@@ -63,7 +66,7 @@ public class FilePreferences extends AbstractPreferences
       flush();
     }
     catch (BackingStoreException e) {
-      log.log(Level.SEVERE, "Unable to flush after removing " + key, e);
+      log.log(Level.FATAL, "Unable to flush after removing " + key, e);
     }
   }
  

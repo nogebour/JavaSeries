@@ -4,6 +4,7 @@ import java.util.prefs.Preferences;
 
 public class UserPreferences {
 	private static final String SQLITE_DB_FILE = "SQLITE_DB_FILE";
+	private static final String LOG4J_FILE = "LOG4J_FILE_LOCATION";
 	// declare my variable at the top of my Java class
 	private static Preferences PREFS = null;
 	
@@ -33,4 +34,16 @@ public class UserPreferences {
 	public void setSQLiteDBFile(){
 		setSQLiteDBFile("JavaSeriesDBFile");
 	}
+	public String getLog4jFile(){
+		return PREFS.get(LOG4J_FILE, null);
+	}
+	
+	public void setLog4jFile(String fileName){
+		PREFS.put(LOG4J_FILE, fileName);
+	}
+	public void setLog4jFile(){
+		setSQLiteDBFile("log4j.properties");
+	}
+
+
 }

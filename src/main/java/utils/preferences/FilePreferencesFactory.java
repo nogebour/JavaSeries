@@ -1,10 +1,13 @@
 package utils.preferences;
 
 import java.io.File;
-import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import java.util.prefs.PreferencesFactory;
 import java.util.prefs.BackingStoreException;
+
+import org.apache.log4j.Logger;
+
+import utils.LoggerUtils;
  
 /**
  * PreferencesFactory implementation that stores the preferences in a user-defined file. To use it,
@@ -19,7 +22,7 @@ import java.util.prefs.BackingStoreException;
  */
 public class FilePreferencesFactory implements PreferencesFactory
 {
-  private static final Logger log = Logger.getLogger(FilePreferencesFactory.class.getName());
+  private static final Logger log = LoggerUtils.getLogger(FilePreferencesFactory.class);
  
   Preferences rootPreferences;
   public static final String SYSTEM_PROPERTY_FILE =
@@ -33,7 +36,7 @@ public class FilePreferencesFactory implements PreferencesFactory
   public Preferences userRoot()
   {
     if (rootPreferences == null) {
-      log.finer("Instantiating root preferences");
+      log.debug("Instantiating root preferences");
  
       rootPreferences = new FilePreferences(null, "");
     }
@@ -50,25 +53,9 @@ public class FilePreferencesFactory implements PreferencesFactory
         prefsFile = System.getProperty("user.home") + File.separator + ".fileprefs";
       }
       preferencesFile = new File(prefsFile).getAbsoluteFile();
-      log.finer("Preferences file is " + preferencesFile);
+      log.debug("Preferences file is " + preferencesFile);
     }
     return preferencesFile;
   }
   
-  /*
-  public static void main(String[] args) throws BackingStoreException
-  {
-    System.setProperty("java.util.prefs.PreferencesFactory", FilePreferencesFactory.class.getName());
-    System.setProperty(SYSTEM_PROPERTY_FILE, "myprefs.txt");
- 
-    Preferences p = Preferences.userNodeForPackage(my.class);
- 
-    for (String s : p.keys()) {
-      System.out.println("p[" + s + "]=" + p.get(s, null));
-    }
- 
-    p.putBoolean("hi", true);
-    p.put("Number", String.valueOf(System.currentTimeMillis()));
-  }
-  */
 }
