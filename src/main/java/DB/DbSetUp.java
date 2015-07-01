@@ -15,7 +15,7 @@ public class DbSetUp {
 	final static Logger logger = LoggerUtils.getLogger(DbSetUp.class);
 	
 	private static final DbSetUp INSTANCE = new DbSetUp();
-	
+	private static Connection theConnection;
 	private UserPreferences theUserPrefs;
 
 	private DbSetUp(){
@@ -23,27 +23,28 @@ public class DbSetUp {
 	}
 
 	public Connection connectToDB(){
-		String DbFileName = theUserPrefs.getSQLiteDBFile();
-		Connection theConn = null;
-		if(DbFileName == null){//TODO Add Exception for UserPreferences not found
-			theUserPrefs.setSQLiteDBFile();
-			DbFileName = theUserPrefs.getSQLiteDBFile();
-		}
-		if (DbFileName != null){
-			// load the sqlite-JDBC driver using the current class loader
-			try {
-				Class.forName("org.sqlite.JDBC");
-				theConn = DriverManager.getConnection("jdbc:sqlite:"+DbFileName+".db");
-
-			} catch (ClassNotFoundException e) {
-				logger.error("Class Not Found - Return null");
-				e.printStackTrace();
-			} catch (SQLException e) {
-				logger.error("SQL Exception - Return null");
-				e.printStackTrace();
+		if(theConnection == null){
+			String DbFileName = theUserPrefs.getSQLiteDBFile();
+			if(DbFileName == null){//TODO Add Exception for UserPreferences not found
+				theUserPrefs.setSQLiteDBFile();
+				DbFileName = theUserPrefs.getSQLiteDBFile();
 			}
+			if (DbFileName != null){
+				// load the sqlite-JDBC driver using the current class loader
+				try {
+					Class.forName("org.sqlite.JDBC");
+					theConnection = DriverManager.getConnection("jdbc:sqlite:"+DbFileName+".db");
+
+				} catch (ClassNotFoundException e) {
+					logger.error("Class Not Found - Return null");
+					e.printStackTrace();
+				} catch (SQLException e) {
+					logger.error("SQL Exception - Return null");
+					e.printStackTrace();
+				}
+			}			
 		}
-		return theConn;
+		return theConnection;
 	}
 
 	public boolean initiateDataBase(Connection iConn){
