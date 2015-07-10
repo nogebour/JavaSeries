@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
+import org.javatuples.Pair;
 
 import utils.LoggerUtils;
 import bom.Show;
@@ -32,13 +36,13 @@ public class DbShow {
 		int theReturnId = -1;
 		theReturnId = selectIdShow(inShow, theConn);
 		if(theReturnId == -1){
-			insertShow(inShow, theConn);
+			insertShowDb(inShow, theConn);
 			theReturnId = selectIdShow(inShow, theConn);
 		}
 		return theReturnId;
 	}
 
-	public void insertShow(Show inShow, Connection theConn) {
+	protected void insertShowDb(Show inShow, Connection theConn) {
 		String sqlInsertGenre = "Insert into SHOW (ID,THETVDBID,IMDBID,"
 				+ "TITLE,DESCRIPTION,SEASONS,EPISODES,FOLLOWERS,COMMENTS,"
 				+ "SIMILARS,CHARACTERS,LENGTH,NETWORK,RATING,STATUS,LANGUAGE,"
@@ -69,9 +73,104 @@ public class DbShow {
 			logger.error("Exception during the insertion of a show.");
 			e.printStackTrace();
 		}
+		DbGenre theDbGenre = new DbGenre();
+		ArrayList<Pair<Integer,String>> theShowGenreMapping = getShowGenreMappingByShowDb(inShow, theConn);
+		List<Pair<Integer,String>> theGenresToDelete = new ArrayList<Pair<Integer,String>>();
+		List<String> theGenresToSave = new ArrayList<String>();
+		for (Pair<Integer,String> aMappingEntry: theShowGenreMapping){
+			if(inShow.getGenres().contains(aMappingEntry.getValue1())){
+				theGenresToSave.add(aMappingEntry.getValue1());
+			}else{
+				theGenresToDelete.add(aMappingEntry);
+			}
+		}
+		Iterator<String> iteratorShow = inShow.getGenres().iterator();
+		while (iteratorShow.hasNext()) {
+			String inGenre = iteratorShow.next();
+			if(!theGenresToSave.contains(inGenre)){
+				theDbGenre.addGenre(inGenre);
+				int idGenre = theDbGenre.selectIdByGenre(inGenre, theConn);
+				addGenreShowMappingDb(idGenre, inShow, theConn);
+			}
+		}
+		Iterator<Pair<Integer,String>> iteratorDeleteGenre = theGenresToDelete.iterator();
+		while (iteratorDeleteGenre.hasNext()) {
+			Pair<Integer, String> anEntry = iteratorDeleteGenre.next();
+			deleteMAppingGenreShowDb(inShow, anEntry, theConn);
+		}
 	}
 	
-	public void updateShow(Show inShow, Connection theConn) {
+	protected void deleteMAppingGenreShowDb(Show inShow,
+			Pair<Integer, String> anEntry, Connection aConn) {
+		try {
+			PreparedStatement theTruncateStatement = aConn.prepareStatement("DELETE from SHOW_GENRE_MAPPING where GENRE_ID = ? and SHOW_ID = ?;");
+			theTruncateStatement.setInt(1, anEntry.getValue0());
+			theTruncateStatement.setInt(2, (int) inShow.getId());
+			theTruncateStatement.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void addGenreShowMappingDb(int inGenre, Show inShow,
+			Connection theConn) {
+		String sqlInsertGenreShowMapping = "Insert into SHOW_GENRE_MAPPING (SHOW_ID,GENRE_ID) values (?,?);";
+		PreparedStatement theStatement;
+		try {
+			theStatement = theConn.prepareStatement(sqlInsertGenreShowMapping);
+			theStatement.setInt(1, (int) inShow.getId());
+			theStatement.setInt(2, inGenre);
+		    theStatement.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("Error during the insertion of an entry in GENRE_SHOW_MAPPING");
+			e.printStackTrace();
+		}
+	}
+
+	protected ArrayList<Pair<Integer, String>> getShowGenreMappingByShowDb(Show inShow, Connection theConn) {
+		ArrayList<Pair<Integer,String>> theResult = new ArrayList<Pair<Integer,String>>();
+		String theSelectQueryMappingJoin = "select ID_GENRE,GENRE.GENRE from GENRE,SHOW_GENRE_MAPPING"
+				+ "where ID_SHOW = ? and ID_GENRE = GENRE.ID;";
+		try {
+			// create the java statement
+			final PreparedStatement theStatement = theConn.prepareStatement(theSelectQueryMappingJoin);
+			theStatement.setInt(1, (int) inShow.getId());
+		    // execute the query, and get a java resultset
+		    ResultSet theDbResults = theStatement.executeQuery();
+		    while(theDbResults.next()){
+		    	theResult.add(new Pair<Integer, String>((Integer)theDbResults.getObject(1), (String)theDbResults.getObject(2)));
+		    }
+		} catch (SQLException e) {
+			logger.error("Exception during the select request for a SHOW GENRE mapping.");
+			e.printStackTrace();
+		}
+		return theResult;
+	}
+
+	public void updateShow(Show inShow){
+		updateShow(inShow, false, this.aDbSetup.connectToDB());
+	}
+	
+	public void updateShow(Show inShow, boolean forceCreate){
+		updateShow(inShow, forceCreate, this.aDbSetup.connectToDB());
+	}
+	
+	public void updateShow(Show inShow, Connection theConn){
+		updateShow(inShow, false, theConn);
+	}
+
+	
+	public void updateShow(Show inShow, boolean forceCreate, Connection theConn){
+		int theReturnId = -1;
+		theReturnId = selectIdShow(inShow, theConn);
+		if(theReturnId > -1){
+			updateShowDb(inShow, theConn);
+		}else if (forceCreate){
+			insertShowDb(inShow, theConn);
+		}
+	}
+	
+	protected void updateShowDb(Show inShow, Connection theConn) {
 		String sqlInsertGenre = "Update SHOW set THETVDBID = ?, IMDBID = ?, "
 				+ "TITLE = ?, DESCRIPTION = ?, SEASONS = ?, EPISODES = ?, FOLLOWERS = ?, COMMENTS = ?, "
 				+ "SIMILARS = ?, CHARACTERS = ?, LENGTH = ?, NETWORK = ?, RATING = ?, STATUS = ?, LANGUAGE = ?, "
@@ -123,4 +222,6 @@ public class DbShow {
 		}
 		return theReturnId;
 	}
+	
+	
 }

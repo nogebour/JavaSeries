@@ -31,7 +31,7 @@ public class DbGenre {
 		return theReturnId;
 	}
 
-	public void insertGenre(String genre, Connection theConn) {
+	protected void insertGenre(String genre, Connection theConn) {
 		String sqlInsertGenre = "Insert into GENRE (GENRE) values (?);";
 		PreparedStatement theStatement;
 		try {
@@ -43,7 +43,7 @@ public class DbGenre {
 		}
 	}
 	
-	public int selectIdByGenre(String genre, Connection theConn) {
+	protected int selectIdByGenre(String genre, Connection theConn) {
 		int theReturnId = -1;
 		String sqlSelectGenre = "Select ID from GENRE where GENRE.GENRE = ?;";
 		try {
@@ -66,7 +66,7 @@ public class DbGenre {
 		return this.deleteGenreByGenre(aGenre, aDbSetup.connectToDB());
 	}
 
-	public int deleteGenreByGenre(String aGenre, Connection aConn) {
+	protected int deleteGenreByGenre(String aGenre, Connection aConn) {
 		PreparedStatement theTruncateStatement;
 		int returnCode = 0;
 		try {
