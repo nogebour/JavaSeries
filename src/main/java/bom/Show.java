@@ -2,8 +2,8 @@ package bom;
 
 import interfaces.IntBomObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +34,7 @@ public class Show implements IntBomObject{
 	public Show() {
 		super();
 		this.episodesList = new HashMap<Long, Episode>();
+		this.genres = new ArrayList<String>();
 	}
 
 	public boolean addEpisode(Episode episode){

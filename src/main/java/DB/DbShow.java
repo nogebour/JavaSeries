@@ -130,7 +130,8 @@ public class DbShow {
 	protected ArrayList<Pair<Integer, String>> getShowGenreMappingByShowDb(Show inShow, Connection theConn) {
 		ArrayList<Pair<Integer,String>> theResult = new ArrayList<Pair<Integer,String>>();
 		String theSelectQueryMappingJoin = "select ID_GENRE,GENRE.GENRE from GENRE,SHOW_GENRE_MAPPING"
-				+ "where ID_SHOW = ? and ID_GENRE = GENRE.ID;";
+				+ " where ID_SHOW = ? and ID_GENRE = GENRE.ID;";
+		logger.info(theSelectQueryMappingJoin);
 		try {
 			// create the java statement
 			final PreparedStatement theStatement = theConn.prepareStatement(theSelectQueryMappingJoin);
@@ -222,6 +223,4 @@ public class DbShow {
 		}
 		return theReturnId;
 	}
-	
-	
 }

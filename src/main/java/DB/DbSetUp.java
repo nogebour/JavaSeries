@@ -34,7 +34,7 @@ public class DbSetUp {
 				try {
 					Class.forName("org.sqlite.JDBC");
 					theConnection = DriverManager.getConnection("jdbc:sqlite:"+DbFileName+".db");
-
+					this.initiateDataBase(theConnection);
 				} catch (ClassNotFoundException e) {
 					logger.error("Class Not Found - Return null");
 					e.printStackTrace();
